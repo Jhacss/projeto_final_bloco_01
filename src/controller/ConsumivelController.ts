@@ -1,58 +1,70 @@
+import { Bebida } from "../model/Bebida";
 import { Consumivel } from "../model/Consumivel";
 import { ConsumivelRepository } from "../Repository/ConsumivelRepository";
 
 export class ConsumivelController implements ConsumivelRepository {
-  public id: number = 0;
-
-  // Coleção Array que vai armazenar os objetos de consumíveis
-  listaconsumiveis = new Array<Consumivel>();
-
-  // Método para criar consumível
   criarConsumivel(consumivel: Consumivel): void {
     this.listaconsumiveis.push(consumivel);
-    console.log("O consumível foi adicionado com sucesso!");
+    console.log("O consumivel foi adicionado com sucesso!");
   }
 
-  // Método para atualizar um consumível
-  atualizarConsumivel(consumivel: Consumivel): void {
-    const index = this.listaconsumiveis.findIndex(
-      (c) => c.id === consumivel.id
-    );
-    if (index !== -1) {
-      this.listaconsumiveis[index] = consumivel;
-      console.log("O consumível foi atualizado com sucesso!");
-    } else {
-      console.log("Consumível não encontrado.");
-    }
-  }
+  public id: number = 0;
 
-  // Método para listar todos os consumíveis
+  //coleção Array que vai armazenar os objetos de consumiveis
+  listaconsumiveis = new Array<Consumivel>();
+
   listarTodos(): void {
     this.listaconsumiveis.forEach((consumivel) => consumivel.visualizar());
   }
+  // Método auxiliar para buscar uma conta no array
+  public buscarNoArray(id: number): Consumivel | null {
+    for (let consumivel of this.listaconsumiveis) {
+      if (consumivel.id === this.id) {
+        return consumivel;
+      }
+    }
 
-  // Método para buscar consumível por id
+    return null;
+  }
+
   buscaPorId(id: number): void {
-    const consumivel = this.listaconsumiveis.find((c) => c.id === id);
-    if (consumivel) {
-      consumivel.visualizar();
+    const buscaConsumivel = this.buscarNoArray(id);
+
+    if (buscaConsumivel !== null) {
+      buscaConsumivel.visualizar();
     } else {
-      console.log("Consumível não encontrado.");
+      console.log("\nConta não encontrada!");
     }
   }
 
-  // Método para deletar consumível
+  atualizarConsumivel(consumiveis: Consumivel): void {
+    const buscaConsumivel = this.buscarNoArray(consumiveis.id);
+
+    if (buscaConsumivel !== null) {
+      this.listaconsumiveis[this.listaconsumiveis.indexOf(buscaConsumivel)] =
+        consumiveis;
+      console.log("Consumivel foi atualizado com sucesso!");
+    } else {
+      console.log("\nConsumivel não encontrado!");
+    }
+  }
   deletarConsumivel(id: number): void {
-    const index = this.listaconsumiveis.findIndex((c) => c.id === id);
-    if (index !== -1) {
-      this.listaconsumiveis.splice(index, 1);
-      console.log("Consumível deletado com sucesso!");
+    const buscaConsumivel = this.buscarNoArray(id);
+
+    if (buscaConsumivel !== null) {
+      this.listaconsumiveis.splice(
+        this.listaconsumiveis.indexOf(buscaConsumivel),
+        1
+      );
+      console.log("O consumivel foi deletado com sucesso!");
     } else {
-      console.log("Consumível não encontrado.");
+      console.log("\n O consumivel não foi encontrado");
     }
   }
 
-  // Método auxiliar para gerar ID para os consumíveis
+  /*Métodos Auxiliares*/
+
+  /*Gerar Id do Produto*/
   public gerarId(): number {
     return ++this.id;
   }

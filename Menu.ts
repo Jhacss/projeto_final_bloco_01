@@ -2,19 +2,19 @@ import readlinesync = require("readline-sync");
 import { colors } from "./src/utill/Cores";
 import { ConsumivelController } from "./src/controller/ConsumivelController";
 import { Bebida } from "./src/model/Bebida";
-
 import { Comida } from "./src/model/Comida";
 
 export function main() {
-  let opcao, tipo, preco: number;
-  let nome, seguimento, tipoSabor: string;
+  let opcao, tipo, preco, id: number;
+  let nome, segmento, tipoSabor: string;
+
   let tipoConsumiveis = ["Bebida", "Comida"];
 
   // Instanciar um Objeto da Classe ConsumiveisController
   const consumivelController = new ConsumivelController();
 
-  const c1 = new Bebida(1, "coxinha", 2, 2, "salgado")
-  c1.visualizar()
+  const c1 = new Comida(1, "coxinha", 2, 2, "salgado")
+  consumivelController.criarConsumivel(c1)
 
   while (true) {
     menu();
@@ -35,22 +35,23 @@ export function main() {
 
         console.log("escolha o tipo do Consumivel: ");
         tipo =
-          readlinesync.keyInSelect(tipoConsumiveis, "", { cancel: false }) + 1;
+          readlinesync.keyInSelect(tipoConsumiveis, "", {
+            cancel: false,
+          }) + 1;
 
-        console.log(" Digite o preço do Consumivel: ");
-        preco = readlinesync.questionFloat(``);
+        preco = readlinesync.questionFloat(`Digite o preco: `);
 
         switch (tipo) {
           case 1:
-            console.log(" Digite o seguimento da bebida: ");
-            seguimento = readlinesync.question(``);
+            console.log(" Digite o segmento da bebida: ");
+            segmento = readlinesync.question(``);
             consumivelController.criarConsumivel(
               new Bebida(
                 consumivelController.gerarId(),
                 nome,
                 tipo,
                 preco,
-                seguimento
+                segmento
               )
             );
 
@@ -67,39 +68,77 @@ export function main() {
                 tipoSabor
               )
             );
-
-            keyPress();
-            break;
-
-          case 2:
-            console.log("listar todos os consumiveis");
-            consumivelController.listarTodos();
-
-            keyPress();
-
-            break;
-
-          case 3:
-            console.log("Consultar aperitivo por id");
-
-            keyPress();
-            break;
-
-          case 4:
-            console.log("atualizar produto");
-
-            keyPress();
-            break;
-
-          case 5:
-            console.log("deletar produto");
-
-            keyPress();
             break;
         }
+        keyPress();
+        break;
+
+      case 2:
+        console.log("listar todos os consumiveis");
+        consumivelController.listarTodos();
+
+        keyPress();
+
+        break;
+
+      case 3:
+        console.log("Consultar o consumivel");
+        console.log("Digite o id do consumivel: ");
+        id = readlinesync.questionInt("");
+
+        consumivelController.buscaPorId(id);
+
+        keyPress();
+        break;
+
+      case 4:
+        console.log("atualizar produto");
+
+        id = readlinesync.questionInt("Digite o Id do Produto: ");
+
+        // Verifica se o Produto existe
+        let consumivel = consumivelController.buscarNoArray(id);
+
+        if (consumivel !== null) {
+          nome = readlinesync.question("Digite o Nome do Consumivel: ");
+          tipo = consumivel.tipo;
+          preco = readlinesync.questionFloat("Digite o preco: ");
+
+          switch (tipo) {
+            case 1:
+              segmento = readlinesync.question("Digite o Nome do Segmento: ");
+              consumivelController.atualizarConsumivel(
+                new Bebida(id, nome, tipo, preco, segmento)
+              );
+              break;
+
+            case 2:
+              tipoSabor = readlinesync.question("Digite o tipo do sabor: ");
+
+              consumivelController.atualizarConsumivel(
+                new Comida(id, nome, tipo, preco, tipoSabor)
+              );
+              break;
+          }
+        } else console.log("Produto não Encontrado!");
+
+        keyPress(); // Aqui já é o final do case, então não precisa de mais um keyPress.
+        break;
+
+      case 5:
+        console.log("deletar produto");
+        console.log("apagar conta: ");
+        console.log("Digite o id do consumiveol: ");
+        id = readlinesync.questionInt("");
+
+        consumivelController.deletarConsumivel(id);
+        break;
+        keyPress();
+        break;
     }
   }
 }
+
 function menu(): void {
   console.log(colors.fg.blue);
   console.log("\n**************************************\n");
