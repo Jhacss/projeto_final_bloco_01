@@ -1,28 +1,30 @@
-import { Alimento } from "./Alimento";
+import { Consumivel } from "./Consumivel";
 
-export class Bebida extends Alimento {
-  private _seguimento;
+export class Bebida extends Consumivel {
+  
+  private _segmento: string;
 
   constructor(
     id: number,
     nome: string,
     tipo: number,
     preco: number,
-    seguimnento: string
+    segmento: string
   ) {
     super(id, nome, tipo, preco);
-    this._seguimento = seguimnento;
+    this._segmento = segmento;
   }
-  public get seguimento(): string {
-    return this._seguimento;
-  }
-
-  public set seguimento(value: string) {
-    this._seguimento = value;
+  public get segmento(): string {
+    return this._segmento;
   }
 
-  public visualizar() {
+  public set segmento(value: string) {
+    this._segmento = value;
+  }
+
+  public visualizar(): void{
+
     super.visualizar();
-    console.log(`Seguimento: ${this._seguimento}`);
+    console.log(`Segmento: ${this._segmento}`);
   }
 }

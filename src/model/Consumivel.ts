@@ -1,4 +1,4 @@
-export abstract class Alimento{
+export abstract class Consumivel{
 
     private _id: number;
     private _nome: string;
@@ -13,17 +13,18 @@ export abstract class Alimento{
 		this._preco = preco;
 	}
 
+
    
 	public get id(): number {
 		return this._id;
 	}
 
- 
+
 	public get nome(): string {
 		return this._nome;
 	}
 
- 
+
 	public get tipo(): number {
 		return this._tipo;
 	}
@@ -33,10 +34,11 @@ export abstract class Alimento{
 		return this._preco;
 	}
 
- 
+
 	public set id(value: number) {
 		this._id = value;
 	}
+
 
 	public set nome(value: string) {
 		this._nome = value;
@@ -52,7 +54,11 @@ export abstract class Alimento{
 		this._preco = value;
 	}
 
-    public visualizar(){
+
+
+
+
+    public visualizar(): void{
 
         let tipo: string;
 
@@ -65,12 +71,12 @@ export abstract class Alimento{
                 break;
         
         console.log("==============================================");
-        console.log("=============     Alimento   ==================");
+        console.log("=============     Consumiveis   ==============");
         console.log("==============================================");
-        console.log(` ID do produto:  ${this._id}`);
-        console.log(` Nome do produto: ${this._nome}`);
-        console.log(` Tipo de produto: ${tipo}`);
-        console.log(` Preco do produto: ${this._preco}`);
+        console.log(` ID do consumivel:  ${this._id}`);
+        console.log(` Nome do consumivel: ${this._nome}`);
+        console.log(` Tipo do consumivel: ${tipo}`);
+        console.log(` Preco do consumivel: ${this._preco}`);
         
     }
 
