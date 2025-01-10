@@ -13,8 +13,8 @@ export function main() {
   // Instanciar um Objeto da Classe ConsumiveisController
   const consumivelController = new ConsumivelController();
 
-  const c1 = new Comida(1, "coxinha", 2, 2, "salgado")
-  consumivelController.criarConsumivel(c1)
+  const c1 = new Comida(1, "coxinha", 2, 2, "salgado");
+  consumivelController.criarConsumivel(c1);
 
   while (true) {
     menu();
@@ -92,9 +92,9 @@ export function main() {
         break;
 
       case 4:
-        console.log("atualizar produto");
+        console.log("atualizar consumivel");
 
-        id = readlinesync.questionInt("Digite o Id do Produto: ");
+        id = readlinesync.questionInt("Digite o Id do consumivel: ");
 
         // Verifica se o Produto existe
         let consumivel = consumivelController.buscarNoArray(id);
@@ -120,13 +120,13 @@ export function main() {
               );
               break;
           }
-        } else console.log("Produto não Encontrado!");
+        } else console.log("Consumivel não Encontrado!");
 
         keyPress(); // Aqui já é o final do case, então não precisa de mais um keyPress.
         break;
 
       case 5:
-        console.log("deletar produto");
+        console.log("deletar consumivel");
         console.log("apagar conta: ");
         console.log("Digite o id do consumiveol: ");
         id = readlinesync.questionInt("");
@@ -146,11 +146,11 @@ function menu(): void {
   console.log("*          Bar do Zoio De Gato           *\n");
 
   console.log("****************************************");
-  console.log("1 - Criar alimento");
-  console.log("2 - listar todos os alimentos");
-  console.log("3 - consultar alimento por id");
-  console.log("4 - atualizar alimento");
-  console.log("5 - deletar alimento");
+  console.log("1 - Criar consumivel");
+  console.log("2 - listar todos os Consumiveis");
+  console.log("3 - consultar consumivel por id");
+  console.log("4 - atualizar consumivel");
+  console.log("5 - deletar consumivel");
   console.log("0 - sair do bar do Zoio De Gato");
   console.log("**************************************");
   console.log(colors.reset);
@@ -161,7 +161,7 @@ function about(): void {
   console.log("bar do Zoio de Gato ");
   console.log("**************************************");
   console.log("Projeto desenvolvido por: João Henrique");
-  console.log("git hub: https://github.com/Jhacss?tab=repositories");
+  console.log("git hub: https://github.com/Jhacss");
   console.log(colors.reset);
 }
 
